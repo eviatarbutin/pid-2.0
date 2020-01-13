@@ -1,19 +1,17 @@
-from magicbot import StateMachine, state
 from components.pidcontroller import PIDControl
+from magicbot import AutonomousStateMachine, state
 
 
-class piddrive(StateMachine):
-    MODE_NAME = "first pid"
+class piddrive(AutonomousStateMachine):
+    MODE_NAME = "ElevatorDriver"
     DEFAULT = True
 
-    pidcontroller: PIDControl
+    pid_controller: PIDControl
 
     @state(first=True)
     def drive(self, initial_call):
         if initial_call:
-            self.pidcontroller.setup_values(1, 2, 1, 0, 0.1, 0.02, 4, 15, 1, 2)
-        elif self.pidcontroller.finished:
+            self.pid_controller.setup_values()
+        self.pid_controller.engage()
+        if self.pid_controller.finished:
             self.done()
-        else:
-            self.pidcontroller.engage()
-
