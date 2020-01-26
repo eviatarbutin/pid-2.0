@@ -1,4 +1,5 @@
 from components.pidcontroller import PIDControl
+from autonomous.piddrive import piddrive
 from components.chassis import Chassis
 from wpilib.joystick import Joystick
 from magicbot import MagicRobot
@@ -11,6 +12,7 @@ class Robot(MagicRobot):
     pid_controller: PIDControl
     chassis: Chassis
     joystick: Joystick
+    pid_drive: piddrive
 
     def createObjects(self):
         self.chassis_left_motor_master = WPI_TalonSRX(1)
@@ -23,7 +25,7 @@ class Robot(MagicRobot):
         self.joystick = Joystick(0)
 
     def teleopPeriodic(self):
-        self.chassis.set_speed(-self.joystick.getY(), -self.joystick.getZ())
+        self.chassis.set_speed(-self.joystick.getY(), -self.joystick.getThrottle())
 
 
 if __name__ == '__main__':

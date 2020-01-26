@@ -22,7 +22,7 @@ class Chassis:
         self.right_motor_master.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder)
         self.right_motor_master.configVoltageCompSaturation(11)
         self.right_motor_master.enableVoltageCompensation(True)
-        self.right_motor_slave.setInverted(False)
+        self.right_motor_slave.setInverted(True)
         self.right_motor_master.setInverted(False)
 
         self.diffrential_drive = DifferentialDrive(self.left_motor_master, self.right_motor_master)

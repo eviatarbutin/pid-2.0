@@ -9,9 +9,7 @@ class piddrive(AutonomousStateMachine):
     pid_controller: PIDControl
 
     @state(first=True)
-    def drive(self, initial_call):
-        if initial_call:
-            self.pid_controller.setup_values()
+    def drive(self):
         self.pid_controller.engage()
         if self.pid_controller.finished:
             self.done()
